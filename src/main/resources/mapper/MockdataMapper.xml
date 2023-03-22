@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.skura.mapper.MockdataMapper">
+
+
+    <!--SELECT SUM(AMOUNT) FROM MOCKDATA
+        WHERE
+            PAY_TIME BETWEEN
+                STR_TO_DATE(#{req.startDate}, '%Y-%m-%d') AND
+                STR_TO_DATE(#{req.endDate}, '%Y-%m-%d')-->
+    <select id="queryTradeSumsByPeriod" resultType="java.lang.Long">
+
+        SELECT IFNULL(SUM(AMOUNT), 0) FROM MOCKDATA
+        WHERE 1=1
+        <if test="req.startDate!=null and req.startDate !='' and req.endDate!=null and req.endDate !=''">
+            AND PAY_TIME BETWEEN STR_TO_DATE(#{req.startDate}, '%Y-%m-%d') AND STR_TO_DATE(#{req.endDate}, '%Y-%m-%d')
+        </if>
+        <if test="(req.startDate==null or req.startDate =='' or req.endDate==null or req.endDate =='')">
+            AND 1=0
+        </if>
+
+
+    </select>
+    <!--对账2.0也是这条sql-->
+    <select id="checkOrders" resultType="com.skura.entity.Mockdata">
+        SELECT * FROM MOCKDATA
+        WHERE ID IN
+        <foreach collection="ids" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+</mapper>
