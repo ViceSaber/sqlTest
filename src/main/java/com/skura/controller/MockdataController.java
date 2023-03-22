@@ -27,7 +27,7 @@ public class MockdataController {
     private MockdataService mockdataService;
 
     /**
-     * 根据名字检索123
+     * 根据名字检索
      * @param name
      * @return
      */
@@ -39,7 +39,7 @@ public class MockdataController {
     }
 
     /**
-     * 根据时段返回交易总额
+     * 根据时段返回交易总额 标记
      * @param periodReq
      * @return
      */
