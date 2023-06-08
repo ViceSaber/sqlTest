@@ -15,7 +15,7 @@ import java.util.List;
  *  Mapper 接口
  * </p>
  *
- * @author zhangqiang
+ * @author zhang
  * @since 2023-03-20
  */
 @Component
